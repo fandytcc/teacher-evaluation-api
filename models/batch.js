@@ -9,14 +9,14 @@ const studentSchema = new Schema({
   codes: [{ type: String }],
   evaluated: { type: Boolean, default: false },
   evaluatedAt: { type: Date, default: Date.now },
-  evaluatedBy: [{ type: Schema.Types.ObjectId, ref: 'users' }],  authorId: { type: Schema.Types.ObjectId, ref: 'users' },
+  evaluatedBy: [{ type: Schema.Types.ObjectId, ref: 'users' }],
+  authorId: { type: Schema.Types.ObjectId, ref: 'users' },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
 
 const batchSchema = new Schema({
   students: [studentSchema],
-  started: { type: Boolean, default: false },
   startDate: { type: Date, default: Date.now },
   endDate: { type: Date, default: Date.now },
   authorId: { type: Schema.Types.ObjectId, ref: 'users' },

@@ -1,0 +1,45 @@
+[
+  {
+    "title": "Batch 1",
+    "students": [
+      {
+        "name": "Jason Lo",
+        "photo": "https://picsum.photos/200/300/?random",
+        "remark": "You are doing great!",
+        "codes": ["R", "G", "Y", "G", "Y"],
+        "evaluated": true,
+        "evaluatedAt": Date.now,
+      },
+      {
+        "name": "Roxanna Hip",
+        "photo": "https://picsum.photos/200/300/?random",
+        "remark": "Let's have an additional turtorial.",
+        "codes": ["R", "Y", "Y", "R", "R"],
+        "evaluated": true,
+      },
+    ],
+    "startDate": "May 06, 2018",
+    "endDate": "Jul 10, 2018",
+  },
+  {
+    "title": "Batch 2",
+    "students": [
+      {
+        "name": "Danny Koh",
+        "photo": "https://picsum.photos/200/300/?random",
+        "remark": "You are awesome!",
+        "codes": ["G", "G", "G", "G", "Y"],
+        "evaluated": false,
+      },
+      {
+        "name": "Paul Cheese",
+        "photo": "https://picsum.photos/200/300/?random",
+        "remark": "Try harding!",
+        "codes": ["G", "R", "R", "G", "Y"],
+        "evaluated": false,
+      },
+    ],
+    "startDate": "March 03, 2018",
+    "endDate": "May 04, 2018",
+  },
+]
