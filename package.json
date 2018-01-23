@@ -4,11 +4,6 @@
   "description": "RESTful API for manage batches and students",
   "main": "index.js",
   "license": "MIT",
-  "engines": {
-    "node": "8.5.0",
-    "yarn": "1.2.1",
-    "npm": "5.4.2"
-  },
   "scripts": {
     "start": "node .",
     "dev": "nodemon --inspect .",
@@ -24,8 +19,7 @@
     "passport-jwt": "^3.0.1",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^4.4.0",
-    "socket.io": "^2.0.4",
-    "socketio-jwt-auth": "^0.0.6"
+    "superagent": "^3.8.2"
   },
   "devDependencies": {
     "nodemon": "^1.12.1"
