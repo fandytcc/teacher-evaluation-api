@@ -1,7 +1,7 @@
 {
-  "name": "memory-batch-api",
-  "version": "1.0.0",
-  "description": "API for memory batches",
+  "name": "teacher-evaluation-api",
+  "version": "1.2.1",
+  "description": "RESTful API for manage batches and students",
   "main": "index.js",
   "license": "MIT",
   "engines": {
@@ -11,7 +11,8 @@
   },
   "scripts": {
     "start": "node .",
-    "dev": "nodemon --inspect ."
+    "dev": "nodemon --inspect .",
+    "seed": "node db/seed.js"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
