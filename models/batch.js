@@ -20,7 +20,7 @@ const studentSchema = new Schema({
 });
 
 const batchSchema = new Schema({
-  title: { type: String, required: true}
+  title: { type: String, required: true},
   students: [studentSchema],
   startDate: { type: Date, default: Date.now },
   endDate: { type: Date, default: Date.now },

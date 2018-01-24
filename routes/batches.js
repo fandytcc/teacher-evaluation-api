@@ -2,104 +2,80 @@
 const router = require('express').Router()
 const passport = require('../config/auth')
 const { Batch } = require('../models')
-const utils = require('../lib/utils')
 
 const authenticate = passport.authorize('jwt', { session: false })
 
-module.exports = io => {
-  router
-    .get('/batches', (req, res, next) => {
-      Batch.find()
-        // Newest batches first
-        .sort({ createdAt: -1 })
-        // Send the data in JSON format
-        .then((batches) => res.json(batches))
-        // Throw a 500 error if something goes wrong
-        .catch((error) => next(error))
-    })
-    .get('/batches/:id', (req, res, next) => {
-      const id = req.params.id
+router.get('/batches', (req, res, next) => {
+  Batch.find()
+    // Newest batches first
+    .sort({ createdAt: -1 })
+    // Send the data in JSON format
+    .then((batches) => res.json(batches))
+    // Throw a 500 error if something goes wrong
+    .catch((error) => next(error))
+  })
+  .get('/batches/:batchId', (req, res, next) => {
+    const batchId = req.params.id
+    Batch.findById(batchId)
+      .then((batch) => {
+        if (!batch) { return next() }
+        res.json(batch)
+      })
+      .catch((error) => next(error))
+  })
+  .post('/batches', authenticate, (req, res, next) => {
+    if (!req.account) {
+      const error = new Error('Unauthorized')
+      error.status = 401
+      return next(error)
+    }
 
-      Batch.findById(id)
-        .then((batch) => {
-          if (!batch) { return next() }
+    let newBatch = req.body
+    newBatch.authorId = req.account._id
+
+    Batch.create(newBatch)
+      .then((batch) => {
+        res.status = 201
+        res.json(batch)
+      })
+      .catch((error) => next(error))
+    })
+  .put('/batches/:batchId', authenticate, (req, res, next) => {
+    const batchId = req.params.id
+    const updatedBatch = req.body
+
+    Batch.findByIdAndUpdate(batchId, { $set: updatedBatch }, { new: true })
+      .then((batch) => {
+        if (!batch) return next()
+        res.json(batch)
+      })
+      .catch((error) => next(error))
+  })
+  .patch('/batches/:batchId', authenticate, (req, res, next) => {
+    const batchId = req.params.id
+    const patchForBatch = req.body
+
+    Batch.findById(batchId)
+      .then((batch) => {
+        if (!batch) return next()
+
+        const updatedBatch = { ...batch, ...patchForBatch }
+
+        Batch.findByIdAndUpdate(batchId, { $set: updatedBatch }, { new: true })
+          .then((batch) => res.json(batch))
+          .catch((error) => next(error))
+      })
+      .catch((error) => next(error))
+  })
+  .delete('/batches/:batchId', authenticate, (req, res, next) => {
+    const batchId = req.params.id
+
+    Batch.findByIdAndRemove(batchId)
+      .then((batch) => {
+        if (!batch) return next()
           res.json(batch)
-        })
-        .catch((error) => next(error))
-    })
-    .post('/batches', authenticate, (req, res, next) => {
-      const newBatch = {
-        userId: req.account._id,
-        students: [{
-          userId: req.account._id,
-          pairs: []
-        }],
-        cards: utils.shuffle('✿✪♦✵♣♠♥✖'.repeat(2).split(''))
-          .map((symbol) => ({ visible: false, symbol }))
-      }
+      })
+      .catch((error) => next(error))
+  })
 
-      Batch.create(newBatch)
-        .then((batch) => {
-          io.emit('action', {
-            type: 'Batch_CREATED',
-            payload: batch
-          })
-          res.json(batch)
-        })
-        .catch((error) => next(error))
-    })
-    .put('/batches/:id', authenticate, (req, res, next) => {
-      const id = req.params.id
-      const updatedBatch = req.body
-
-      Batch.findByIdAndUpdate(id, { $set: updatedBatch }, { new: true })
-        .then((batch) => {
-          io.emit('action', {
-            type: 'Batch_UPDATED',
-            payload: batch
-          })
-          res.json(batch)
-        })
-        .catch((error) => next(error))
-    })
-    .patch('/batches/:id', authenticate, (req, res, next) => {
-      const id = req.params.id
-      const patchForBatch = req.body
-
-      Batch.findById(id)
-        .then((batch) => {
-          if (!batch) { return next() }
-
-          const updatedBatch = { ...batch, ...patchForBatch }
-
-          Batch.findByIdAndUpdate(id, { $set: updatedBatch }, { new: true })
-            .then((batch) => {
-              io.emit('action', {
-                type: 'Batch_UPDATED',
-                payload: batch
-              })
-              res.json(batch)
-            })
-            .catch((error) => next(error))
-        })
-        .catch((error) => next(error))
-    })
-    .delete('/batches/:id', authenticate, (req, res, next) => {
-      const id = req.params.id
-      Batch.findByIdAndRemove(id)
-        .then(() => {
-          io.emit('action', {
-            type: 'Batch_REMOVED',
-            payload: id
-          })
-          res.status = 200
-          res.json({
-            message: 'Removed',
-            _id: id
-          })
-        })
-        .catch((error) => next(error))
-    })
-
-  return router
-}
+module.exports = router
