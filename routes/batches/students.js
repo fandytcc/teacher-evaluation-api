@@ -17,7 +17,7 @@ const loadBatch = (req, res, next) => {
 }
 
 const getStudents = (req, res, next) => {
-  Promise.all(req.batch.students.map(student => Batch.students.findById(student._id)))
+  Promise.all(req.batch.students.map(student => Batch.students.findById(student.id)))
     .then((students) => {
         return {
           name: student.name,
@@ -37,7 +37,7 @@ router
 
     .get('batches/:id/students/:studentId', loadBatch, (req, res, next) => {
       if (!req.batch || !req.students) { return next() }
-      const studentId = req.students.params.id
+      const studentId = req.student.params.id
 
       Batch.students.findById(studentId)
         .then((student) => {
@@ -48,19 +48,18 @@ router
     })
 
     .post('/batches/:id/students/:studentId', authenticate, loadBatch, (req, res, next) => {
-      if (!req.batch) { return next() }
-
-      const studentId = req.students.params.id
+      if (!req.student) { return next() }
+      const studentId = req.student.params.id
 
       let newStudent = {
         name: req.body.name,
         photo: req.body.photo,
       }
-      newBatch.authorId = req.account._id
+      newStudent.authorId = req.account._id
 
       req.student.save()
-        .then((batch) => {
-          req.student = batch
+        .then((student) => {
+          req.student = student
           next()
         })
         .catch((error) => next(error))
@@ -73,9 +72,9 @@ router
     })
 
     .delete('/batches/:id/students/:studentId', authenticate, loadBatch, (req, res, next) => {
-      if (!req.batch) { return next() }
+      if (!req.student) { return next() }
 
-      const studentId = req.students.params.id
+      const studentId = req.student.params.id
       const student = req.students.filter((s) => s._id.toString() === studentId.toString())[0]
 
       req.students = req.students.filter((s) => s._id.toString() !== studentId.toString())
