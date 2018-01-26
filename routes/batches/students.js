@@ -16,84 +16,81 @@ const loadBatch = (req, res, next) => {
     .catch((error) => next(error))
 }
 
-// const getStudents = (req, res, next) => {
-//   Promise.all(req.batch.students.map(student => User.findById(student._Id)))
-//     .then((users) => {
-//       // Combine student data and user's name
-//       req.students = req.batch.students.map((student) => {
-//         const { name } = users
-//           .filter((u) => u._id.toString() === student.userId.toString())[0]
-//
-//         return {
-//           userId: student.userId,
-//           pairs: student.pairs,
-//           name
-//         }
-//       })
-//       next()
-//     })
-//     .catch((error) => next(error))
-// }
+const getStudents = (req, res, next) => {
+  Promise.all(req.batch.students.map(student => Batch.students.findById(student.id)))
+    .then((students) => {
+        return {
+          name: student.name,
+          photo: student.photo,
+          evaluations: student.evaulation
+        }
+        next()
+    })
+    .catch((error) => next(error))
+}
 
-router.get('/batches/:id/students', loadBatch (req, res, next) => {
+router
+    .get('/batches/:id/students', loadBatch, (req, res, next) => {
       if (!req.batch || !req.students) { return next() }
       res.json(req.students)
     })
 
-    // .post('/batches/:id/students', authenticate, loadBatch, (req, res, next) => {
-    //   if (!req.batch) { return next() }
-    //
-    //   const userId = req.account._id
-    //
-    //   if (req.batch.students.filter((p) => p.userId.toString() === userId.toString()).length > 0) {
-    //     const error = Error.new('You already joined this batch!')
-    //     error.status = 401
-    //     return next(error)
-    //   }
-    //
-    //   // Add the user to the students
-    //   req.batch.students.push({ userId, pairs: [] })
-    //
-    //   req.batch.save()
-    //     .then((batch) => {
-    //       req.batch = batch
-    //       next()
-    //     })
-    //     .catch((error) => next(error))
-    // },
-    // // Fetch new student data
-    // getstudents,
-    // // Respond with new student data in JSON
-    // (req, res, next) => {
-    //   res.json(req.students)
-    // })
-    //
-    // .delete('/batches/:id/students', authenticate, (req, res, next) => {
-    //   if (!req.batch) { return next() }
-    //
-    //   const userId = req.account._id
-    //   const currentstudent = req.batch.students.filter((p) => p.userId.toString() === userId.toString())[0]
-    //
-    //   if (!currentstudent) {
-    //     const error = Error.new('You are not a student of this batch!')
-    //     error.status = 401
-    //     return next(error)
-    //   }
-    //
-    //   req.batch.students = req.batch.students.filter((p) => p.userId.toString() !== userId.toString())
-    //   req.batch.save()
-    //     .then((batch) => {
-    //       req.batch = batch
-    //       next()
-    //     })
-    //     .catch((error) => next(error))
-    //
-    // },
-    // // Fetch new student data
-    // getstudents,
-    // // Respond with new student data in JSON
-    // (req, res, next) => {
-    //   res.json(req.students)
-    // })
+    .get('batches/:id/students/:studentId', loadBatch, (req, res, next) => {
+      if (!req.batch || !req.students) { return next() }
+      const studentId = req.student.params.id
+
+      Batch.students.findById(studentId)
+        .then((student) => {
+          if (!student) { return next() }
+          res.json(student)
+        })
+        .catch((error) => next(error))
+    })
+
+    .post('/batches/:id/students/:studentId', authenticate, loadBatch, (req, res, next) => {
+      if (!req.student) { return next() }
+      const studentId = req.student.params.id
+
+      let newStudent = {
+        name: req.body.name,
+        photo: req.body.photo,
+      }
+      newStudent.authorId = req.account._id
+
+      req.student.save()
+        .then((student) => {
+          req.student = student
+          next()
+        })
+        .catch((error) => next(error))
+    },
+    // Fetch new student data
+    getStudents,
+    // Respond with new student data in JSON
+    (req, res, next) => {
+      res.json(req.students)
+    })
+
+    .delete('/batches/:id/students/:studentId', authenticate, loadBatch, (req, res, next) => {
+      if (!req.student) { return next() }
+
+      const studentId = req.student.params.id
+      const student = req.students.filter((s) => s._id.toString() === studentId.toString())[0]
+
+      req.students = req.students.filter((s) => s._id.toString() !== studentId.toString())
+      req.student.save()
+        .then((student) => {
+          req.student = student
+          next()
+        })
+        .catch((error) => next(error))
+
+    },
+    // Fetch new student data
+    getStudents,
+    // Respond with new student data in JSON
+    (req, res, next) => {
+      res.json(req.students)
+    })
 
 module.exports = router

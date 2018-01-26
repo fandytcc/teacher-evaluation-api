@@ -30,11 +30,17 @@ router.get('/batches', (req, res, next) => {
       return next(error)
     }
 
-    let newBatch = req.body
+    // let newBatch = req.body
+    let newBatch = {
+      title: req.body.title,
+      startDate: req.body.startDate,
+      endDate: req.body.endDate
+    }
     newBatch.authorId = req.account._id
 
     Batch.create(newBatch)
       .then((batch) => {
+        debugger
         res.status = 201
         res.json(batch)
       })
