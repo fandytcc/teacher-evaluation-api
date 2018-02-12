@@ -31,21 +31,29 @@ const getStudents = (req, res, next) => {
 
 router
     .get('/batches/:id/students', loadBatch, (req, res, next) => {
-      if (!req.batch || !req.students) { return next() }
+      if (!req.batch) { return next() }
       res.json(req.students)
     })
 
-    .get('batches/:id/students/:studentId', loadBatch, (req, res, next) => {
-      if (!req.batch || !req.students) { return next() }
-      const studentId = req.student.params.id
+    .get('/batches/:id/students/:studentId', loadBatch, (req, res, next) => {
+      console.log('hihi')
+      if (!req.batch) { return next() }
+      const studentId = req.params.studentId
+      console.log(studentId)
 
-      Batch.students.findById(studentId)
-        .then((student) => {
-          if (!student) { return next() }
-          res.json(student)
-        })
-        .catch((error) => next(error))
+      // Batch.students.findById(studentId)
+      //   .then((student) => {
+      //     if (!student) { return next() }
+      //     res.json(student)
+      //   })
+      //   .catch((error) => next(error))
+      const student = req.batch.students.filter(student => {
+        return (student._id.toString() === studentId.toString())
+      })[0]
+
+      res.json(student)
     })
+
 
     .post('/batches/:id/students/:studentId', authenticate, loadBatch, (req, res, next) => {
       if (!req.student) { return next() }
