@@ -17,7 +17,7 @@ router.get('/batches', (req, res, next) => {
   })
   .get('/batches/:batchId', (req, res, next) => {
     const id = req.params.batchId
-    console.log('hi')
+    // console.log('hi')
     Batch.findById(id)
       .then((batch) => {
         if (!batch) { return next() }
