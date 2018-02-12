@@ -2,7 +2,7 @@
 		"title": "Batch 1",
 		"students": [{
 				"name": "Jason Lo",
-				"photo": "https://picsum.photos/200/300/?random",
+				"photo": "https://picsum.photos/200/?random",
 				"evaluations": [{
 						"code": "Y",
 						"remark": "You are doing great!",
@@ -22,7 +22,7 @@
 			},
 			{
 				"name": "Peter Pan",
-				"photo": "https://picsum.photos/200/300/?random",
+				"photo": "https://picsum.photos/200/200/?random",
 				"evaluations": [{
 						"code": "R",
 						"remark": "Try harder!",
@@ -42,7 +42,7 @@
 			},
 			{
 				"name": "James Wong",
-				"photo": "https://picsum.photos/200/300/?random",
+				"photo": "https://picsum.photos/200/200/?random",
 				"evaluations": [{
 						"code": "G",
 						"remark": "You are doing great!",
@@ -62,7 +62,7 @@
 			},
 			{
 				"name": "Mary Lo",
-				"photo": "https://picsum.photos/200/300/?random",
+				"photo": "https://picsum.photos/200/200/?random",
 				"evaluations": [{
 						"code": "R",
 						"remark": "Try harder!",
@@ -82,7 +82,7 @@
 			},
 			{
 				"name": "Cat Lo",
-				"photo": "https://picsum.photos/200/300/?random",
+				"photo": "https://picsum.photos/200/200/?random",
 				"evaluations": [{
 						"code": "Y",
 						"remark": "OK",
@@ -102,7 +102,7 @@
 			},
 			{
 				"name": "Queenie Leung",
-				"photo": "https://picsum.photos/200/300/?random",
+				"photo": "https://picsum.photos/200/200/?random",
 				"evaluations": [{
 						"code": "G",
 						"remark": "Good job!",
@@ -122,7 +122,7 @@
 			},
 			{
 				"name": "Elisa Boel",
-				"photo": "https://picsum.photos/200/300/?random",
+				"photo": "https://picsum.photos/200/200/?random",
 				"evaluations": [{
 						"code": "G",
 						"remark": "You are doing great!",
@@ -142,7 +142,7 @@
 			},
 			{
 				"name": "Ken Cheung",
-				"photo": "https://picsum.photos/200/300/?random",
+				"photo": "https://picsum.photos/200/200/?random",
 				"evaluations": [{
 						"code": "R",
 						"remark": "Try harder!",
@@ -162,7 +162,7 @@
 			},
 			{
 				"name": "Sebastian Lam",
-				"photo": "https://picsum.photos/200/300/?random",
+				"photo": "https://picsum.photos/200/200/?random",
 				"evaluations": [{
 						"code": "Y",
 						"remark": "OK",
@@ -182,7 +182,7 @@
 			},
 			{
 				"name": "Roberto Chan",
-				"photo": "https://picsum.photos/200/300/?random",
+				"photo": "https://picsum.photos/200/200/?random",
 				"evaluations": [{
 						"code": "R",
 						"remark": "Try harder!",
@@ -208,7 +208,7 @@
 		"title": "Batch 2",
 		"students": [{
 				"name": "Danny Koh",
-				"photo": "https://picsum.photos/200/300/?random",
+				"photo": "https://picsum.photos/200/200/?random",
 				"evaluations": [{
 						"code": "G",
 						"remark": "You are awesome!",
@@ -228,7 +228,7 @@
 			},
 			{
 				"name": "Paul Cheese",
-				"photo": "https://picsum.photos/200/300/?random",
+				"photo": "https://picsum.photos/200/200/?random",
 				"evaluations": [{
 						"code": "G",
 						"remark": "You are awesome!",
@@ -248,7 +248,7 @@
 			},
 			{
 				"name": "Susan Lo",
-				"photo": "https://picsum.photos/200/300/?random",
+				"photo": "https://picsum.photos/200/200/?random",
 				"evaluations": [{
 						"code": "Y",
 						"remark": "Good job",
@@ -268,7 +268,7 @@
 			},
 			{
 				"name": "Oliver Key",
-				"photo": "https://picsum.photos/200/300/?random",
+				"photo": "https://picsum.photos/200/200/?random",
 				"evaluations": [{
 						"code": "G",
 						"remark": "You are awesome!",
@@ -288,7 +288,7 @@
 			},
 			{
 				"name": "Alice Leung",
-				"photo": "https://picsum.photos/200/300/?random",
+				"photo": "https://picsum.photos/200/200/?random",
 				"evaluations": [{
 						"code": "G",
 						"remark": "You are awesome!",
@@ -308,7 +308,7 @@
 			},
 			{
 				"name": "Matt Peth",
-				"photo": "https://picsum.photos/200/300/?random",
+				"photo": "https://picsum.photos/200/200/?random",
 				"evaluations": [{
 						"code": "G",
 						"remark": "You are awesome!",
@@ -328,7 +328,7 @@
 			},
 			{
 				"name": "John Hap",
-				"photo": "https://picsum.photos/200/300/?random",
+				"photo": "https://picsum.photos/200/200/?random",
 				"evaluations": [{
 						"code": "Y",
 						"remark": "Good job",
@@ -348,7 +348,7 @@
 			},
 			{
 				"name": "Alicia Chui",
-				"photo": "https://picsum.photos/200/300/?random",
+				"photo": "https://picsum.photos/200/200/?random",
 				"evaluations": [{
 						"code": "G",
 						"remark": "You are awesome!",
@@ -368,7 +368,7 @@
 			},
 			{
 				"name": "Lorence France",
-				"photo": "https://picsum.photos/200/300/?random",
+				"photo": "https://picsum.photos/200/200/?random",
 				"evaluations": [{
 						"code": "G",
 						"remark": "You are awesome!",
@@ -388,7 +388,7 @@
 			},
 			{
 				"name": "Xander Ox",
-				"photo": "https://picsum.photos/200/300/?random",
+				"photo": "https://picsum.photos/200/200/?random",
 				"evaluations": [{
 						"code": "G",
 						"remark": "You are awesome!",

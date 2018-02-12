@@ -18,7 +18,7 @@ const loadBatch = (req, res, next) => {
 
 const getStudents = (req, res, next) => {
   Promise.all(req.batch.students.map(student => Batch.students.findById(student.id)))
-    .then((students) => {
+    .then((student) => {
         return {
           name: student.name,
           photo: student.photo,
@@ -36,17 +36,9 @@ router
     })
 
     .get('/batches/:id/students/:studentId', loadBatch, (req, res, next) => {
-      console.log('hihi')
       if (!req.batch) { return next() }
       const studentId = req.params.studentId
-      console.log(studentId)
 
-      // Batch.students.findById(studentId)
-      //   .then((student) => {
-      //     if (!student) { return next() }
-      //     res.json(student)
-      //   })
-      //   .catch((error) => next(error))
       const student = req.batch.students.filter(student => {
         return (student._id.toString() === studentId.toString())
       })[0]
@@ -54,15 +46,15 @@ router
       res.json(student)
     })
 
-
     .post('/batches/:id/students/:studentId', authenticate, loadBatch, (req, res, next) => {
-      if (!req.student) { return next() }
-      const studentId = req.student.params.id
+      if (!req.batch) { return next() }
+      const studentId = req.params.studentId
 
       let newStudent = {
         name: req.body.name,
         photo: req.body.photo,
       }
+
       newStudent.authorId = req.account._id
 
       req.student.save()
@@ -80,19 +72,21 @@ router
     })
 
     .delete('/batches/:id/students/:studentId', authenticate, loadBatch, (req, res, next) => {
-      if (!req.student) { return next() }
+      if (!req.batch) { return next() }
 
-      const studentId = req.student.params.id
-      const student = req.students.filter((s) => s._id.toString() === studentId.toString())[0]
+      const studentId = req.params.studentId
+      const student = req.batch.students.filter(student => {
+        return (student._id.toString() === studentId.toString())
+      })[0]
 
-      req.students = req.students.filter((s) => s._id.toString() !== studentId.toString())
+      req.students = req.batch.students.filter(student => student._id.toString() !== studentId.toString())
+
       req.student.save()
         .then((student) => {
           req.student = student
           next()
         })
         .catch((error) => next(error))
-
     },
     // Fetch new student data
     getStudents,
