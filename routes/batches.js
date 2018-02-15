@@ -26,7 +26,7 @@ router.get('/batches', (req, res, next) => {
       .catch((error) => next(error))
   })
   .post('/batches', authenticate, (req, res, next) => {
-    let newBatch = req.body
+    let newBatch = req.body //=payload
     // let newBatch = {
     //   title: req.body.title,
     //   startDate: req.body.startDate,
