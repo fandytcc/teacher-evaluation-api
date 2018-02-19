@@ -27,19 +27,46 @@ router.get('/batches', (req, res, next) => {
   })
   .post('/batches', authenticate, (req, res, next) => {
     let newBatch = req.body //=payload
-    // let newBatch = {
-    //   title: req.body.title,
-    //   startDate: req.body.startDate,
-    //   endDate: req.body.endDate
-    // }
 
     Batch.create(newBatch)
       .then((batch) => {
-        debugger
         res.status = 201
         res.json(batch)
       })
       .catch((error) => next(error))
-    })
+  })
+  .put('/batches/:batchId', (req, res, next) => {
+    const id = req.params.batchId
+    let batchUpdates = req.body
+
+    Batch.findOneAndUpdate(id, batchUpdates)
+      .then((batch) => {
+        if (!batch) { return next() }
+        res.json(batch)
+      })
+      .catch((error) => next(error))
+  })
+  .patch('/batches/:batchId', (req, res, next) => {
+    const id = req.params.batchId
+    let batchUpdates = req.body
+
+    // { $set: { student: studentUpdates } }
+    Batch.findOneAndUpdate(id, batchUpdates)
+      .then((batch) => {
+        if (!batch) { return next() }
+        res.json(batch)
+      })
+      .catch((error) => next(error))
+  })
+  .delete('/batches/:batchId', (req, res, next) => {
+    const id = req.params.batchId
+
+    Batch.findOneAndRemove(id)
+      .then((batch) => {
+        if(!batch) return next()
+        res.json(batch)
+      })
+      .catch((error) => next(error))
+  })
 
 module.exports = router
