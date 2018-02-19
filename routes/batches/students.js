@@ -102,14 +102,13 @@ router
      })
 
      req.batch.students = students
-     console.log(req.batch.students)
 
      req.batch.save()
        .then((batch) => {
          req.batch = batch
        })
        res.json(req.batch)
-       .catch((errotr) => next(error))
+       .catch((error) => next(error))
     })
 
     .delete('/batches/:id/students/:studentId', authenticate, loadBatch, (req, res, next) => {
