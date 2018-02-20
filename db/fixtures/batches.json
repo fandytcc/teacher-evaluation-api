@@ -1,5 +1,5 @@
 [{
-		"title": "Batch 1",
+		"title": "1",
 		"students": [{
 				"name": "Jason Lo",
 				"photo": "https://coenv-media-gene1ufvxiloffjq.stackpathdns.com/2017/11/2017-18-Graduate-Student-Profile_Campbell-200x200.jpg",
@@ -205,7 +205,7 @@
 		"endDate": "Feb 10, 2018"
 	},
 	{
-		"title": "Batch 2",
+		"title": "2",
 		"students": [{
 				"name": "Danny Koh",
 				"photo": "http://www.nyls.edu/admissions/wp-content/uploads/sites/144/2017/03/Callinan-200x200.jpg",

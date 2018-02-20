@@ -6,7 +6,7 @@ const { Batch } = require('../models')
 const authenticate = passport.authorize('jwt', { session: false })
 
 router.get('/batches', (req, res, next) => {
-  console.log('hi')
+  // console.log('hi')
   Batch.find()
     // Newest batches first
     .sort({ createdAt: -1 })
