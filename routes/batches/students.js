@@ -19,7 +19,7 @@ const loadBatch = (req, res, next) => {
 router
     .get('/batches/:id/students', loadBatch, (req, res, next) => {
       if (!req.batch) { return next() }
-      res.json(req.students)
+      res.json(req.students.sort({ createdAt: -1 }))
     })
 
     .get('/batches/:id/students/:studentId', loadBatch, (req, res, next) => {
@@ -35,7 +35,7 @@ router
 
     .post('/batches/:id/students', authenticate, loadBatch, (req, res, next) => {
       if (!req.batch) { return next() }
-      let newStudent = req.body //=payload
+      let newStudent = req.body
 
       const defaultEvaluation = {
         code: "W",
@@ -45,7 +45,7 @@ router
       newStudent = { ...newStudent, evaluations: defaultEvaluation }
       newStudent.authorId = req.account._id
       // req.batch.students.push(newStudent)
-      const students = req.batch.students.concat(newStudent)
+      const students = req.batch.students.concat(newStudent).sort({ createdAt: -1 })
       req.batch.students = students
 
       req.batch.save()
@@ -60,39 +60,14 @@ router
       res.json(req.batch)
     })
 
-    // .patch('/batches/:id/students/:studentId', authenticate, loadBatch, (req, res, next) => {
-    //   if (!req.batch) { return next() }
-    //   let studentUpdates = req.body
-    //   const studentId = req.params.studentId
-    //
-    //   const students = req.batch.students.map(student => {
-    //     if (student._id.toString() === studentId.toString()) {
-    //       return studentUpdates
-    //       // return { ...student, evaluations: [studentUpdates].concat(student.evaluations)}
-    //     }
-    //
-    //     return student
-    //   })
-    //
-    //   req.batch.students = students
-    //
-    //   req.batch.save()
-    //     .then((batch) => {
-    //       req.batch = batch
-    //       next()
-    //     })
-    //     .catch((errotr) => next(error))
-    //   },
-    //   (req, res, next) => {
-    //     res.json(req.batch)
-    // })
-
     .patch('/batches/:id/students/:studentId', authenticate, loadBatch, (req, res, next) => {
      if (!req.batch) { return next() }
      const studentUpdates = req.body
      const studentId = req.params.studentId
      console.log(req.batch.students)
 
+     studentUpdates.authorId = req.account._id
+     
      const students = req.batch.students.map(student => {
        if (student._id.toString() === studentId.toString()) {
          student.evaluations = [studentUpdates].concat(student.evaluations)

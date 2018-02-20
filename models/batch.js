@@ -8,23 +8,22 @@ const studentSchema = new Schema({
   evaluations: [{
     code: { type: String },
     remark: { type: String },
-    evaluatedAt: { type: Date, default: Date.now },
-    evaluatedBy: [{ type: Schema.Types.ObjectId, ref: 'users' }],
+    evaluatedAt: { type: Date, default: new Date() },
     authorId: { type: Schema.Types.ObjectId, ref: 'users' },
   }],
   authorId: { type: Schema.Types.ObjectId, ref: 'users' },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: new Date() },
+  updatedAt: { type: Date, default: new Date() },
 });
 
 const batchSchema = new Schema({
   title: { type: String, required: true},
   students: [studentSchema],
-  startDate: { type: Date, default: Date.now },
-  endDate: { type: Date, default: Date.now },
+  startDate: { type: Date, default: new Date() },
+  endDate: { type: Date, default: new Date() },
   authorId: { type: Schema.Types.ObjectId, ref: 'users' },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: new Date() },
+  updatedAt: { type: Date, default: new Date() },
 });
 
 module.exports = mongoose.model('batches', batchSchema)
