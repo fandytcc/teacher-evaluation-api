@@ -67,10 +67,10 @@ router
      console.log(req.batch.students)
 
      studentUpdates.authorId = req.account._id
-     
+
      const students = req.batch.students.map(student => {
        if (student._id.toString() === studentId.toString()) {
-         student.evaluations = [studentUpdates].concat(student.evaluations)
+         student.evaluations = student.evaluations.concat([studentUpdates])
        }
 
        return student
