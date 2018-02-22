@@ -14,7 +14,7 @@ const studentSchema = new Schema({
   authorId: { type: Schema.Types.ObjectId, ref: 'users' },
   createdAt: { type: Date, default: new Date() },
   updatedAt: { type: Date, default: new Date() },
-});
+})
 
 const batchSchema = new Schema({
   title: { type: String, required: true},
@@ -24,6 +24,6 @@ const batchSchema = new Schema({
   authorId: { type: Schema.Types.ObjectId, ref: 'users' },
   createdAt: { type: Date, default: new Date() },
   updatedAt: { type: Date, default: new Date() },
-});
+})
 
 module.exports = mongoose.model('batches', batchSchema)
