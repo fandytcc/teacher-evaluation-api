@@ -46,6 +46,7 @@ router
       newStudent.authorId = req.account._id
       // req.batch.students.push(newStudent)
       const students = req.batch.students.concat(newStudent).sort({ createdAt: -1 })
+
       req.batch.students = students
 
       req.batch.save()
@@ -64,7 +65,6 @@ router
      if (!req.batch) { return next() }
      const studentUpdates = req.body
      const studentId = req.params.studentId
-     console.log(req.batch.students)
 
      studentUpdates.authorId = req.account._id
 
@@ -82,8 +82,8 @@ router
        .then((batch) => {
          req.batch = batch
        })
-       res.json(req.batch)
        .catch((error) => next(error))
+       res.json(req.batch)
     })
 
     .delete('/batches/:id/students/:studentId', authenticate, loadBatch, (req, res, next) => {
